@@ -1,0 +1,42 @@
+services:
+    monogodb:
+        image: mongo
+        container_name: mono
+        restart: always
+        ports:
+            - "0.0.0.0:27017:27017"
+        networks:
+            - app-network
+    web:
+        image: c2
+        container_name: webapp
+        ports:
+            - "0.0.0.0:8000:5000"
+        networks:
+            - app-network
+        depends_on:
+            - monogodb 
+        environment:
+            - MONGO_URI=mongodb://mongodb:27017/
+    web2:
+        image: c1
+        container_name: webapp2
+        ports:
+            - "0.0.0.0:8001:5000"
+        networks:
+            - app-network
+    nginx:
+        image: nginx
+        container_name: ngx 
+        ports:
+            - "0.0.0.0:80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - web
+            - web2
+        networks:
+            - app-network
+networks:
+  app-network:
+    driver: bridge

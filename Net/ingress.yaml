@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+  namespace: pliu
+spec:
+  rules:
+  - host: webnodb.pliu.net4255.luxbulb.org # 替换为您的域名或主机名
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webnodb-service
+            port:
+              number: 80
+  - host: webdb.pliu.net4255.luxbulb.org  # 替换为您的域名或主机名
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: webdb-service
+            port:
+              number: 80

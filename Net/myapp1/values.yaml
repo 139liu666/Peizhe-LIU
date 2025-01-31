@@ -1,0 +1,21 @@
+service:
+  webnodb:
+    type: ClusterIP
+    port: 80
+  webdb:
+    type: ClusterIP
+    port: 80
+  mongo:
+    type: ClusterIP
+    port: 8003
+
+ingress:
+  enabled: true
+  rules:
+    - host: webnodb.pliu.net4255.luxbulb.org
+      serviceName: webnodb-service
+      servicePort: 80
+    - host: webdb.pliu.net4255.luxbulb.org
+      serviceName: webdb-service
+      servicePort: 80
+

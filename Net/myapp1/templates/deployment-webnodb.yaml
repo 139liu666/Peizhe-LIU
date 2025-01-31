@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webnodb-deployment
+  namespace: pliu
+  labels:
+    app: webnodb
+spec:
+  replicas: 1  
+  selector:
+    matchLabels:
+      app: webnodb
+  template:
+    metadata:
+      labels:
+        app: webnodb
+    spec:
+      containers:
+      - name: webnodb
+        image: liupeizhe/webnodb:latest  # 替换为实际镜像名称
+        resources:
+          requests:
+            cpu: "0.1"         # 每个 Pod 请求的 CPU 资源
+            memory: "100Mi"     # 每个 Pod 请求的内存
+          limits:
+            cpu: "0.2"         # 每个 Pod 限制的 CPU 资源
+            memory: "200Mi"     # 每个 Pod 限制的内存
+        ports:
+        - containerPort: 5000  # 容器监听的端口

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webdb-deployment
+  namespace: pliu  
+spec:
+  replicas: 3  # 创建 3 个副本
+  selector:
+    matchLabels:
+      app: webdb
+  template:
+    metadata:
+      labels:
+        app: webdb
+    spec:
+      containers:
+      - name: webdb
+        image: liupeizhe/webdb:latest 
+        env:
+        - name: MONGO_URI  # 环境变量名称
+          value: "mongodb://mongodb-service.pliu.svc.cluster.local:8003"  # MongoDB 的连接字符串
+        resources:
+          requests:
+            cpu: "0.1"  
+            memory: "100Mi"  
+          limits:
+            cpu: "0.2"  
+            memory: "200Mi"  
+        ports:
+        - containerPort: 5000  # 容器监听的端口
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+
