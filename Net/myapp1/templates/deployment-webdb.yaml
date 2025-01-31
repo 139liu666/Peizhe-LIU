@@ -18,7 +18,7 @@ spec:
         image: liupeizhe/webdb:latest 
         env:
         - name: MONGO_URI  # 环境变量名称
-          value: "mongodb://mongodb-statefulset-0.mongodb-service.pliu.svc.cluster.local:8003"  # MongoDB 的连接字符串
+          value: "mongodb://mongodb-statefulset-0.mongodb-headless.pliu.svc.cluster.local:27017"  # MongoDB 的连接字符串
         resources:
           requests:
             cpu: "0.1"  

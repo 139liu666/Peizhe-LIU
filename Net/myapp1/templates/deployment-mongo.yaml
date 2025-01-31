@@ -4,7 +4,7 @@ metadata:
   name: mongodb-statefulset
   namespace: pliu
 spec:
-  serviceName: mongodb-service
+  serviceName: mongodb-headless
   replicas: 1  # 单个副本，因为数据库通常只需要一个副本
   selector:
     matchLabels:
